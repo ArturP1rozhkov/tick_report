@@ -1,3 +1,13 @@
+---
+type: Курс по DevOPS Home Work
+module: Мониторинг и логи
+lesson_no: 1
+lesson_theme: Системы мониторинга
+---
+> [!bookmark]
+>
+> **Домашнее задание: <%+ tp.file.title %>**
+# Домашнее задание к занятию "13. Системы мониторинга"
 
 ## Обязательные задания
 
@@ -5,17 +15,17 @@
 Вас пригласили настроить мониторинг на проект. На онбординге вам рассказали, что проект представляет из себя платформу для вычислений с выдачей текстовых отчетов, которые сохраняются на диск. Взаимодействие с платформой осуществляется по протоколу http. Также вам отметили, что вычисления загружают ЦПУ. Какой минимальный набор метрик вы выведите в мониторинг и почему?
    
 ### **Ответ:** 
-- CPU:
-	  - Utilization: `node_cpu_seconds_total`  для контроля загрузки CPU, так как вычисления нагружают процессор (https://prometheus.io/docs/guides/node-exporter/).
-	  - Saturation: `node_load1`, `node_load5`, `node_load15`показывает, есть ли задачи, ожидающие обработку на CPU. Позволяет получить сигнал о перегрузке до того, как утилизация дойдёт до 100%. ([https://github.com/ruanbekker/cheatsheets/blob/master/prometheus/metric_examples/NODE_METRICS.md](https://github.com/ruanbekker/cheatsheets/blob/master/prometheus/metric_examples/NODE_METRICS.md)).
-- Диск:
-	  - `node_filesystem_avail_bytes`, `node_filesystem_size_bytes`  для контроля свободного места на диске, так как отчёты сохраняются в файловую систему (https://prometheus.io/docs/guides/node-exporter/).
-	  - `node_disk_io_time_seconds_total`  для контроля занятости дисковой подсистемы при записи отчётов.
-	  - `node_filesystem_files`, `node_filesystem_files_free`  а также их производная `inode usage %`. Метрики отражают общее количество и свободное количество  `inode`. (`inode` - это структура файловой системы, которая хранит метаданные файла, и при исчерпании` inode` новые файлы нельзя создать даже при наличии свободного места на диске. Для сервиса, который сохраняет текстовые отчёты в файловую систему, это практический риск, поэтому `inode` полезно контролировать наряду со свободным местом) (https://docs.rackspace.com/docs/what-are-inodes-in-linux, https://www.stackscale.com/blog/inodes-linux/). 
-- HTTP-сервис: 
-	  - `http_requests_total` для контроля потока HTTP-запросов и расчёта доли ошибок.
-	  - `http_request_duration_seconds` для контроля времени ответа сервиса и выявления деградации производительности (https://github.com/albertogviana/prometheus-middleware/blob/master/README.md).
-	  - HTTP error rate: из отношения ошибочных кодов к общему числу запросов (https://github.com/albertogviana/prometheus-middleware/blob/master/README.md)
+#### CPU:
+- Utilization: `node_cpu_seconds_total`  для контроля загрузки CPU, так как вычисления нагружают процессор (https://prometheus.io/docs/guides/node-exporter/).
+- Saturation: `node_load1`, `node_load5`, `node_load15`показывает, есть ли задачи, ожидающие обработку на CPU. Позволяет получить сигнал о перегрузке до того, как утилизация дойдёт до 100%. ([https://github.com/ruanbekker/cheatsheets/blob/master/prometheus/metric_examples/NODE_METRICS.md](https://github.com/ruanbekker/cheatsheets/blob/master/prometheus/metric_examples/NODE_METRICS.md)).
+#### Диск:
+- `node_filesystem_avail_bytes`, `node_filesystem_size_bytes`  для контроля свободного места на диске, так как отчёты сохраняются в файловую систему (https://prometheus.io/docs/guides/node-exporter/).
+- `node_disk_io_time_seconds_total`  для контроля занятости дисковой подсистемы при записи отчётов.
+- `node_filesystem_files`, `node_filesystem_files_free`  а также их производная `inode usage %`. Метрики отражают общее количество и свободное количество  `inode`. (`inode` - это структура файловой системы, которая хранит метаданные файла, и при исчерпании` inode` новые файлы нельзя создать даже при наличии свободного места на диске. Для сервиса, который сохраняет текстовые отчёты в файловую систему, это практический риск, поэтому `inode` полезно контролировать наряду со свободным местом) (https://docs.rackspace.com/docs/what-are-inodes-in-linux, https://www.stackscale.com/blog/inodes-linux/). 
+#### HTTP-сервис: 
+- `http_requests_total` для контроля потока HTTP-запросов и расчёта доли ошибок.
+- `http_request_duration_seconds` для контроля времени ответа сервиса и выявления деградации производительности (https://github.com/albertogviana/prometheus-middleware/blob/master/README.md).
+- HTTP error rate: из отношения ошибочных кодов к общему числу запросов (https://github.com/albertogviana/prometheus-middleware/blob/master/README.md)
 Это **минимальный** набор метрик. На практике я бы дополнил его метриками памяти, сетевыми метриками и отдельной метрикой типа количества успешно сформированных отчётов.
 
 
@@ -174,3 +184,20 @@ Telegraf собирает как минимум такие группы метр
 - `system` - общие системные показатели хоста, связанные с uptime, количеством процессов и подобными сведениями, в зависимости от набора полей конкретного плагина;
 - `influxdb` а также ее служебные системные и внутренние метрики.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+> [!calendar] Дата
+> **Добавлено:** 2026-07-14  16:10
+> **Изменено: **<%+ tp.file.last_modified_date("YYYY-MM-DD HH:mm") %>
+> **Тема задания:** <%+ tp.file.title %>
